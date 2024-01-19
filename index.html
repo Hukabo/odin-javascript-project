@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project: Rock Paper Scissors</title>
+</head>
+<body>
+    <script>
+        let playerSelection;
+        let computerSelection;
+        let playerScore = 0;
+        let computerScore = 0;
+
+        function game() {
+            
+            for (let i = 1; i <= 5; i++) {
+                console.log(`${i}번째 게임을 시작합니다.`);
+                playerSelection = prompt("가위, 바위, 보!").toLowerCase();
+                computerSelection = getComputerChoice();
+                
+                playRound(playerSelection, computerSelection);
+                console.log(`현재 스코어 : ${playerScore} : ${computerScore}`);
+            }
+        }
+
+        function playRound(playerSelection, computerSelection) {
+            if (playerSelection === "rock") {
+                if(computerSelection === "rock") {
+                    console.log(`you: ${playerSelection} | com: ${computerSelection}\n 비겼습니다.` );
+                } else if(computerSelection === "paper") {
+                    computerScore++;
+                    console.log(`you: ${playerSelection} | com: ${computerSelection}\n 졌습니다.` );
+                } else if(computerSelection === "scissor"){
+                    playerScore++;
+                    console.log(`you: ${playerSelection} | com: ${computerSelection}\n 이겼습니다.` );
+                }
+            }
+
+            if(playerSelection === "paper") {
+                if(computerSelection === "rock") {
+                    playerScore++;
+                    console.log(`you: ${playerSelection} | com: ${computerSelection}\n 이겼습니다.` );
+                } else if(computerSelection === "paper") {
+                    console.log(`you: ${playerSelection} | com: ${computerSelection}\n 비겼습니다.` );
+                } else if(computerSelection === "scissor") {
+                    computerScore++;
+                    console.log(`you: ${playerSelection} | com: ${computerSelection}\n 졌습니다.` );
+                }
+            }
+
+            if(playerSelection === "scissor") {
+                if(computerSelection === "rock") {
+                    computerScore++;
+                    console.log(`you: ${playerSelection} | com: ${computerSelection}\n 졌습니다.` );
+                } else if(computerSelection === "paper") {
+                    playerScore++;
+                    console.log(`you: ${playerSelection} | com: ${computerSelection}\n 이겼습니다.` );
+                } else if(computerSelection === "scissor") {
+                    console.log(`you: ${playerSelection} | com: ${computerSelection}\n 비겼습니다.` );
+                }
+            }
+        }
+
+        function getComputerChoice() {
+            const randomNumber = Math.floor(Math.random() * 3);
+            let action;
+            if(randomNumber === 0) {
+                action = "rock";
+            } else if(randomNumber === 1) {
+                action = "paper";
+            } else {
+                action = "scissor";
+            }
+
+            return action;
+        }
+    </script>
+    
+</body>
+</html>
