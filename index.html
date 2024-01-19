@@ -17,7 +17,7 @@
             
             for (let i = 1; i <= 5; i++) {
                 console.log(`${i}번째 게임을 시작합니다.`);
-                playerSelection = prompt("가위, 바위, 보!").toLowerCase();
+                playerSelection = prompt("Rock, Paper, Scissor!").toLowerCase();
                 computerSelection = getComputerChoice();
                 
                 playRound(playerSelection, computerSelection);
@@ -38,7 +38,7 @@
                 }
             }
 
-            if(playerSelection === "paper") {
+            else if(playerSelection === "paper") {
                 if(computerSelection === "rock") {
                     playerScore++;
                     console.log(`you: ${playerSelection} | com: ${computerSelection}\n 이겼습니다.` );
@@ -50,7 +50,7 @@
                 }
             }
 
-            if(playerSelection === "scissor") {
+            else if(playerSelection === "scissor") {
                 if(computerSelection === "rock") {
                     computerScore++;
                     console.log(`you: ${playerSelection} | com: ${computerSelection}\n 졌습니다.` );
@@ -60,6 +60,11 @@
                 } else if(computerSelection === "scissor") {
                     console.log(`you: ${playerSelection} | com: ${computerSelection}\n 비겼습니다.` );
                 }
+            }
+
+            else {
+                computerScore++;
+                console.log("잘못내셨네요. 졌습니다.");
             }
         }
 
