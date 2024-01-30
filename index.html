@@ -7,65 +7,84 @@
     <title>Project: Rock Paper Scissors</title>
 </head>
 <body>
+    <h1>Welcome to My game</h1>
+    <div class="place">
+        <button id="rock">rock!</button>
+        <button id="paper">paper!</button>
+        <button id="scissor">scissor!</button>
+    </div>
+    <div id="result"></div>
+
     <script>
         let playerSelection;
         let computerSelection;
         let playerScore = 0;
         let computerScore = 0;
 
-        function game() {
-            
-            for (let i = 1; i <= 5; i++) {
-                console.log(`${i}번째 게임을 시작합니다.`);
-                playerSelection = prompt("Rock, Paper, Scissor!").toLowerCase();
-                computerSelection = getComputerChoice();
-                
-                playRound(playerSelection, computerSelection);
-                console.log(`현재 스코어 : ${playerScore} : ${computerScore}`);
+        let btn = document.querySelector('.place');
+        let result = document.querySelector('#result');
+
+        btn.addEventListener('click', function (e) {
+            let target = e.target;
+            playerSelection = target.id;
+
+            playRound(playerSelection,getComputerChoice());
             }
-        }
+        )
+        
 
         function playRound(playerSelection, computerSelection) {
+            let content = "";
+            
             if (playerSelection === "rock") {
                 if(computerSelection === "rock") {
-                    console.log(`you: ${playerSelection} | com: ${computerSelection}\n 비겼습니다.` );
+                    content = `you: ${playerSelection} | com: ${computerSelection}\n 비겼습니다.`;
                 } else if(computerSelection === "paper") {
                     computerScore++;
-                    console.log(`you: ${playerSelection} | com: ${computerSelection}\n 졌습니다.` );
+                    content = `you: ${playerSelection} | com: ${computerSelection}\n 졌습니다.`;
                 } else if(computerSelection === "scissor"){
                     playerScore++;
-                    console.log(`you: ${playerSelection} | com: ${computerSelection}\n 이겼습니다.` );
+                    content = `you: ${playerSelection} | com: ${computerSelection}\n 이겼습니다.`;
                 }
             }
 
             else if(playerSelection === "paper") {
                 if(computerSelection === "rock") {
                     playerScore++;
-                    console.log(`you: ${playerSelection} | com: ${computerSelection}\n 이겼습니다.` );
+                    content = `you: ${playerSelection} | com: ${computerSelection}\n 이겼습니다.`;
                 } else if(computerSelection === "paper") {
-                    console.log(`you: ${playerSelection} | com: ${computerSelection}\n 비겼습니다.` );
+                    content = `you: ${playerSelection} | com: ${computerSelection}\n 비겼습니다.`;
                 } else if(computerSelection === "scissor") {
                     computerScore++;
-                    console.log(`you: ${playerSelection} | com: ${computerSelection}\n 졌습니다.` );
+                    content = `you: ${playerSelection} | com: ${computerSelection}\n 졌습니다.`;
                 }
             }
 
             else if(playerSelection === "scissor") {
                 if(computerSelection === "rock") {
-                    computerScore++;
-                    console.log(`you: ${playerSelection} | com: ${computerSelection}\n 졌습니다.` );
+                    ++computerScore;
+                    content = `you: ${playerSelection} | com: ${computerSelection}\n 졌습니다.`;
                 } else if(computerSelection === "paper") {
                     playerScore++;
-                    console.log(`you: ${playerSelection} | com: ${computerSelection}\n 이겼습니다.` );
+                    content = `you: ${playerSelection} | com: ${computerSelection}\n 이겼습니다.`;
                 } else if(computerSelection === "scissor") {
-                    console.log(`you: ${playerSelection} | com: ${computerSelection}\n 비겼습니다.` );
+                    content = `you: ${playerSelection} | com: ${computerSelection}\n 비겼습니다.`;
                 }
             }
 
-            else {
-                computerScore++;
-                console.log("잘못내셨네요. 졌습니다.");
+            if (playerScore === 5 || computerScore === 5) {
+                if (playerScore > computerScore) {
+                    content = `승자는 당신입니다!`;
+                } else {
+                    content = `승자는 컴퓨터입니다!`;
+                }
+                playerScore = 0;
+                computerScore = 0;
+                result.innerHTML = content;
+                return;
             }
+
+            result.innerHTML = `${content}\n${playerScore} : ${computerScore}`;
         }
 
         function getComputerChoice() {
