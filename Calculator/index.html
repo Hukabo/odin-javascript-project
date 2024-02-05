@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+</head>
+<body>
+    <div class="operation"></div>
+    <div class="calculated"></div>
+    <button class="button-0">0</button>
+    <button class="button-1">1</button>
+    <button class="button-2">2</button>
+    <button class="button-3">3</button>
+    <button class="button-4">4</button>
+    <button class="button-5">5</button>
+    <button class="button-6">6</button>
+    <button class="button-7">7</button>
+    <button class="button-8">8</button>
+    <button class="button-9">9</button>
+    <button class="addOper">+</button>
+    <button class="subOper">-</button>
+    <button class="mulOper">*</button>
+    <button class="divOper">/</button>
+    <button id="equal">=</button>
+    <script>
+        let first;
+        let secont;
+        let operator = "";
+        // let numbers = [];
+        let operation = document.querySelector('.operation');
+        let calculated = document.querySelector('.calculated');
+        let equalBtn = document.querySelector('#equal');
+
+        function operate(operator, first, second = 0) {
+            let numbers = operation.textContent.split(operator);
+            first = Number(numbers[0]);
+            second = Number(numbers[1]);
+            if(operator === '+') {
+                calculated.textContent = first + second;
+            }
+            else if(operator === '-') {
+                return subtract(first, secont);
+            }
+            else if(operator === '*') {
+                return multiply(first, second);
+            }
+            else if(operator === '/') {
+                return divide(first, second);
+            }
+            return;
+        }
+
+        function add() {
+            operator = addOper.textContent;
+            operation.textContent += "+";
+        }
+
+        function subtract(first, second) {
+            return first - second;
+        }
+
+        function multiply(first, second) {
+            return first * second;
+        }
+
+        function divide(first, second) {
+            if(second === 0) {
+                operation.textContent = "";
+                calculated.textContent = "ERROR";
+                return;
+            }
+            return first / second;
+        }
+
+        for(let i = 1; i <= 9; i++) {
+            let btn = document.querySelector(`.button-${i}`);
+            btn.addEventListener('click', () => handleButtonClick(btn.textContent));
+        }
+
+        const zeroBtn = document.querySelector('.button-0');
+        zeroBtn.addEventListener('click', () => {
+            if(operation.textContent[0] === 0) {
+                return;
+            } else operation.textContent += zeroBtn.textContent;
+        });
+
+        const addOper = document.querySelector('.addOper');
+        addOper.addEventListener('click', () => add(operation.textContent));
+        
+
+        equalBtn.addEventListener('click', () => operate(operator, first));
+
+        function handleButtonClick (value) {
+            operation.textContent += value;
+        }
+        
+    </script>
+    
+</body>
+</html>
+<!-- https://www.theodinproject.com/lessons/foundations-calculator -->
